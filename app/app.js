@@ -35,7 +35,7 @@
         })
         .otherwise({
           redirectTo: '/'
-        })
+        });
 
       $mdThemingProvider.theme('default')
         .primaryPalette('orange', {
@@ -52,27 +52,21 @@
 
       $firebaseRefProvider.registerUrl({
         default: config.databaseURL,
-        object: `${config.databaseURL}/angular/object`,
-        recipe: `${config.databaseURL}/recipes/`,
+        recordings: `${config.databaseURL}/recordings/`,
 
       });
     })
-    .factory('ObjectFactory', ObjectFactory)
     .factory('PlaylistFactory', PlaylistFactory)
-    .controller('MyCtrl', MyCtrl)
+    .controller('MainController', MainController)
     .factory("Auth", ["$firebaseAuth", function ($firebaseAuth) {
       return $firebaseAuth();
     }]);
 
-  function ObjectFactory($firebaseObject, $firebaseRef) {
-    return $firebaseObject($firebaseRef.object);
-  }
-
   function PlaylistFactory($firebaseArray, $firebaseRef) {
-    return $firebaseArray($firebaseRef.recipe);
+    return $firebaseArray($firebaseRef.recordings);
   }
 
-  function MyCtrl(ObjectFactory, Auth, $scope, $mdSidenav) {
+  function MainController(Auth, $scope, $mdSidenav) {
 
 
     this.signIn = signIn;
@@ -84,9 +78,6 @@
     this.auth.$onAuthStateChanged(function (firebaseUser) {
       $scope.firebaseUser = firebaseUser;
     }, this);
-
-
-
 
     this.sayHello = () => {
       return `Hello, ${$scope.firebaseUser.displayName}`;
@@ -103,13 +94,13 @@
       }).catch(function (error) {
         console.log(error);
         this.error = error;
-      })
+      });
 
     }
 
   }
 
-  const ctrl = new MyCtrl({
+  const controller = new MainController({
     name: 'Eduardo'
   });
   const message = ctrl.sayHello();
