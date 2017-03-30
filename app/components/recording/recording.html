@@ -1,7 +1,21 @@
-<div ng-cloak>
+<div ng-cloak  >
     <md-content flex layout-padding>
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Recording name</label>
+                <input ng-model="recording.name">
+            </md-input-container>
+        </div>
+        <div layout-gt-sm="row">
+        </div>
         <md-button class="md-fab" aria-label="Record">
             <md-icon class="material-icons">mic</md-icon>
         </md-button>
+
+        <div layout-gt-sm="row">
+            <md-button ng-click="recording.cancel_recording()" class="md-raised md-warn">Cancel it.</md-button>
+            <md-button ng-click="recording.save_recording()" class="md-raised">Save it.</md-button>
+
+        </div>
     </md-content>
 </div>
