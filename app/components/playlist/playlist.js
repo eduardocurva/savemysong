@@ -10,11 +10,10 @@
             });
     }
 
-    function controller($http, PlaylistFactory) {
+    function PlaylistController($http, $scope, PlaylistFactory) {
 
         var self = this;
-        self.list = PlaylistFactory;
-
+        $scope.list = PlaylistFactory;
         self.changeMessage = function () {
             self.message = "New message";
         };
@@ -30,7 +29,7 @@
     module.component('playlist', {
         templateUrl: 'components/playlist/playlist.html',
         controllerAs: "playlist",
-        controller: ["$http", "PlaylistFactory", controller]
+        controller: ["$http", "$scope", "PlaylistFactory", PlaylistController]
     });
 
 }());
